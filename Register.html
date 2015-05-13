@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<h1 align="center">
+		注册
+	</h1>
+	<style type="text/css">
+
+		body {
+			background-color: #CCFFFF;
+		}
+		th {
+			padding-top: 1cm
+		}
+		td {
+			font-size:20px;
+		}
+		table {
+			margin : 0% 25% 25% 25%
+		}
+		.exp1 {
+			width :200px;
+			height:30px;
+			font-size:20px;
+		}
+		.btn {
+			font-size:20px;
+		}
+
+
+	</style>
+
+	<script type="text/javascript">
+		var path = "/Users/apple/Desktop/ting2/";
+		
+		var footerStr = "<tr><th colspan='2'><input class='btn' type='button' value='注册' onclick='registerClicked()'></th></tr>" 
+
+		function onload () {
+			var str = "<tr><td>身份:</td><td class='exp1'><form><select id='1' name='type' onchange='selectChange()'><option value='学生' selected='selected'>学生</option><option value='教师'>教师</option><option value='管理员'>管理员</option></select></form></td></tr>"
+			var textTitle = ["学校", "班级", "姓名", "学号", "密码", "性别", "年龄", "籍贯", "出生日期", "入学日期"];
+			for (var i = 0; i < textTitle.length; i++) {
+				if (i == 5) {
+					str += "<tr><td>" + textTitle[i] + ":</td><td><form class='exp1' id=" + (i+2) + " style='width:200px;height:30;font-size:22px'><input type='radio' checked='checked' name='Sex' value='男'/><input type='radio' name='Sex' value='女'/></form></td></tr>"
+					// <input type='radio' checked='checked' name='Sex' value='男' disabled='true'/><input type='radio' name='Sex' value='女' disabled='true'/></form>"
+				} else {
+					str += "<tr><td>" + textTitle[i] + ":</td><td><input class='exp1' id=" + (i+2) + " type='text'></td></tr>"
+				}
+			}
+			str += footerStr
+			var xx = document.getElementById("textArr")
+			xx.innerHTML = str;
+		}
+
+		function selectChange () {
+			var textTitle = ""
+			var str = ""
+			var classValue=document.getElementById("1").value
+			if (classValue == "学生") {
+				str += "<tr><td>身份:</td><td class='exp1'><form><select id='1' name='type' onchange='selectChange()'><option value='学生' selected='selected'>学生</option><option value='教师'>教师</option><option value='管理员'>管理员</option></select></form></td></tr>"
+				textTitle = ["学校", "班级", "姓名", "学号", "密码", "性别", "年龄", "籍贯", "出生日期", "入学日期"];
+			} else {
+				textTitle = ["学校", "职称", "姓名", "工号", "密码", "性别", "年龄", "籍贯", "出生日期", "毕业院校"];
+				if (classValue == "教师") {
+					str += "<tr><td>身份:</td><td class='exp1'><form><select id='1' name='type' onchange='selectChange()'><option value='学生'>学生</option><option value='教师' selected='selected'>教师</option><option value='管理员'>管理员</option></select></form></td></tr>"
+				} else if (classValue == "管理员") {
+					str += "<tr><td>类型:</td><td class='exp1'><form><select id='1' name='type' onchange='selectChange()'><option value='学生'>学生</option><option value='教师'>教师</option><option value='管理员' selected='selected'>管理员</option></select></form></td></tr>"
+				}
+			}
+			
+			for (var i = 0; i < textTitle.length; i++) {
+				if (i == 5) {
+					str += "<tr><td>" + textTitle[i] + ":</td><td><form class='exp1' id=" + (i+2) + " style='width:200px;height:30;font-size:22px'><input type='radio' checked='checked' name='Sex' value='男'/><input type='radio' name='Sex' value='女'/></form></td></tr>"
+					// <input type='radio' checked='checked' name='Sex' value='男' disabled='true'/><input type='radio' name='Sex' value='女' disabled='true'/></form>"
+				} else {
+					str += "<tr><td>" + textTitle[i] + ":</td><td><input class='exp1' id=" + (i+2) + " type='text'></td></tr>"
+				}
+			}
+			str += footerStr
+			var xx = document.getElementById("textArr")
+			xx.innerHTML = str;
+		}
+
+		function initSelected () {
+		}
+
+		function registerClicked() {
+
+			var str=""
+			for (var i = 1; i < 12; i++) {
+				var xx="";
+				if (i==7) {
+				    var obj = document.getElementsByTagName("input");
+				    for(var j=0; j<obj.length; j ++){
+				        if(obj[j].checked){
+				            xx = obj[j].value;
+				        }
+				    }
+		    	} else {
+					xx=document.getElementById(i.toString()).value;  
+				}
+				str += xx + "#param#";
+			}
+ 
+			var College = document.getElementById("2").value; 
+			var Class = document.getElementById("3").value; 
+			var name = document.getElementById("4").value; 
+			var StudentID = document.getElementById("5").value;
+			var password = document.getElementById("6").value; 
+			if (College=="南京工程学院" && Class.length > 0 && name.length > 0 && StudentID.length == 3 && password.length > 0) {
+				if (!localStorage.getItem(StudentID)) {
+			        //清空所有的key-value数据。
+			        // localStorage.clear();
+			        // alert(localStorage.length);
+
+			        //添加key-value 数据到 localStorage
+			        localStorage.setItem(StudentID, str);
+			        alert("注册成功")
+		  			window.location.assign(path + "Origin.html")
+				} else {
+					alert("Has been registered")
+				}
+			} else {
+				alert("Incorrect information")
+			}
+		}
+	</script>
+</head>
+
+<body onload="onload()">
+<br/>
+	<table border="0" width="310" height="150" id="textArr">
+	</table>
+
+</body>
+</html>
+
+

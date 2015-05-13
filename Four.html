@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body {
+			background-color: #CCFFFF;
+		}
+		.type {
+			width: 300;
+			height: 60;
+		}
+		.selecte {
+			width: 100;
+			height: 60;
+		}
+		.tr {
+			width: 25%;
+		}
+		td {
+			text-align: center
+		}
+	</style>
+	<script> 
+		function onload () {
+			var dataArr = selectSuperClass("1", "1");
+			selectSuberClass(dataArr, "1");
+		}
+
+		function selectChange1 () {
+			var superClass=document.getElementById("select1").value;
+			var dataArr = selectSuperClass(superClass, "1");
+		}
+
+		function handleClassName (array00) {
+			var nameArr = new Array();
+			for (var i = 0; i < array00.length; i++) {
+				var arr = array00[i].split("#param3#");
+				nameArr.push(arr[0]);
+			}
+			return nameArr;
+		}
+
+		function selectChange2 () {
+			var superClass=document.getElementById("select1").value;
+			var suberClass=document.getElementById("select2").value;
+			var dataArr = selectSuperClass(superClass, suberClass);
+			selectSuberClass(dataArr, suberClass);
+		}
+
+		function selectSuperClass (superClass, index) {
+	        var data = localStorage.getItem("timeQuery");
+			if (data) {
+				var totalArr = data.split("#param1#");
+				var array00 = totalArr[parseInt(superClass)-1].split("#param2#");//某个班的实验室在array[i]里
+
+				var nameArr = handleClassName(array00);
+				var str = ""//"<option value='1' selected='selected'>电子15-1</option>";
+				for (var i = 0; i < nameArr.length; i++) {
+					if (i+1 == parseInt(index)) {
+						str += "<option value=" + (i+1) + " selected='selected'>" + nameArr[i] + "</option>";
+					} else {
+						str += "<option value=" + (i+1) + ">" + nameArr[i] + "</option>"
+					}
+					// 
+				};
+				document.getElementById("select2").innerHTML = str;
+
+				return array00;
+			}
+			return null;
+		}
+
+		function selectSuberClass (array00, suberClass) {
+			//某间实验室的具体详情在arr[i]里,arr[0]为班级名字
+			var arr = array00[parseInt(suberClass)-1].split("#param3#");
+			var xx=document.getElementById("table1");
+			var str = ""; 
+
+			for (var i = 1; i < arr.length; i++) {
+				var labDataArr = arr[i].split("#param4#");
+				var dataStr=""
+				
+				switch(parseInt(labDataArr[2]))
+				{
+					case 1: dataStr =  "上午"; break;
+					case 2: dataStr =  "下午"; break;
+					case 3: dataStr =  "晚上"; break;
+					default: break;
+				}
+				str += "<tr><td>" + labDataArr[0] + "</td><td>" + labDataArr[1]+dataStr + "</td><td>" + labDataArr[3] + "</td><td>" + labDataArr[4] + "</td></tr>";
+			}
+			xx.innerHTML=str;
+		}
+	</script>
+</head>
+
+<body onload="onload()">
+	<br/>
+	<form class="selecte">院系:
+		<select id="select1" class="type" style="height:30px;font-size:18px;" onchange="selectChange1()">
+			<option value="1" selected="selected">电信学院</option>
+			<option value="2">工商学院</option>
+			<option value="3">艺术学院</option>
+			<option value="4">软件学院</option>
+			<option value="5">营销学院</option>
+			<option value="6">安全学院</option>
+		</select>
+	</form>
+	<br/>
+
+	<form class="selecte">班级:
+		<select id="select2" class="type" style="height:30px;font-size:18px;" onchange="selectChange2()">
+		</select>
+	</form>
+	<br/>
+
+	<table border="1" style="width:600px">
+		<tr class="tr">
+			<th>课程名</th>
+			<th>时间</th>
+			<th>地点</th>
+			<th>教师</th>
+		</tr>
+	  	<tbody id="table1">
+		</tbody>
+	</table>
+</body>
+</html>
+
+
+
+

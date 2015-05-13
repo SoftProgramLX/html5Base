@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		.td {
+			width: 33.3%;
+			height: 200px;
+		}
+		.p {
+			padding-top: 0px;
+		}
+		body {
+			background-color: #CCFFFF;
+		}
+	</style>
+	<script>
+		function onload () {
+			var myID = localStorage.getItem("MyID")
+			var data = localStorage.getItem(myID)
+			var userType = localStorage.getItem("userType");
+			if (userType == "学生") {
+				var titleArr = ["身份: ","学校: ", "班级: ", "姓名: ", "学号: "]
+			} else {
+				var titleArr = ["身份: ","学校: ", "职称: ", "姓名: ", "工号: "]
+			}
+
+			if (data) {
+				var arr = data.split("#param#");
+				var xx=document.getElementById("table1"); 
+				var str=""
+				for (var i = 0; i < titleArr.length; i++) {
+					str += "<tr><td id='1'>" +titleArr[i] + arr[i] + "</td></tr>"
+				}
+				xx.innerHTML = str
+			}
+		}
+	</script>
+</head>
+
+<body onload="onload()">
+
+
+	<table border="1">
+		<tr>
+		  <td class="td">
+		  	<p class="p" align="center">Provisions for the use of laboratory</p>
+		  	<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
+		  </td>
+		  <td class="td">
+		  	<p class="p" align="center">The laboratory management</p>
+		  	<p>Welcome!
+
+				<table border="0" id="table1">
+				</table>
+
+		  	</p>
+		  </td>
+		  <td class="td">
+		  	<p class="p" align="center">Laboratory configuration</p>
+		  	<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
+		  </td>
+		</tr>
+	</table>
+
+</body>
+</html>
+
+
+
+

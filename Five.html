@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body {
+			background-color: #CCFFFF;
+		}
+		.table1 {
+			padding-top: 10px;
+			text-align: left;
+			font-size: 22px;
+		}
+		.table2 {
+			padding-top: 10px;
+			text-align: right;
+			font-size: 22px;
+		}
+		.select00 {
+			padding-top: 10px;
+			padding-left: 45px;
+			text-align: left;
+			font-size: 22px;
+		}
+		.button5 {
+			padding-left: 400px;
+			height:400px
+		}
+	</style>
+	<script>
+		var arr = new Array();
+		var titleArr2 = ["年龄:", "籍贯:", "出生日期:", "入学日期"];
+		function onload () {
+			var myID = localStorage.getItem("MyID")
+			var data = localStorage.getItem(myID)
+			var userType = localStorage.getItem("userType");
+			if (userType == "学生") {
+				var titleArr = ["身份: ","学校: ", "班级: ", "姓名: ", "学号: "]
+			} else {
+				var titleArr = ["身份: ","学校: ", "职称: ", "姓名: ", "工号: "]
+			}
+
+			if (data) {
+				arr = data.split("#param#");
+				var xx=document.getElementById("table1"); 
+				var str=""
+				for (var i = 0; i < titleArr.length; i++) {
+					str += "<tr><td id='1'>" +titleArr[i] + arr[i] + "</td></tr>"
+				}
+				xx.innerHTML = str
+				changeTextStatus();
+			}			
+		}
+
+		function editMessage () {
+			var xxx=document.getElementById("editor");  
+			var str00 = "";
+			if (arr[6] == "男") {
+				str00 = "<tr><td class='select00'><form id='7' style='width:200px;height:30;font-size:22px'>性别:<input type='radio' checked='checked' name='Sex' value='男'/><input type='radio' name='Sex' value='女'/></form></td></tr>"
+			} else {
+				str00 = "<tr><td class='select00'><form id='7' style='width:200px;height:30;font-size:22px'>性别:<input type='radio' name='Sex' value='男' /><input checked='checked' type='radio' name='Sex' value='女' disabled='true'/></form></td></tr>"
+			}
+			for (var i = 7; i < 11; i++) {
+				str00 += "<tr><td>" + titleArr2[i-7] + "<input value=" + arr[i].toString() + " id='" + (i+1) + "' type='text' style='background:white;width:200px;height:30;font-size:22px'></td></tr>"
+			}
+			xxx.innerHTML = str00
+
+			var xx=document.getElementById("changeButton");  
+			xx.innerHTML = "<input type='button' style='width:50px;font-size:22px'  value='保存' onclick='saveMessage()'>"
+		}
+
+		function saveMessage () {
+			var array = arr.slice(0,6)
+			var str=array.join("#param#")
+		    var obj = document.getElementsByTagName("input");
+		    for(var j=0; j<obj.length; j ++){
+		        if(obj[j].checked){
+		            xx = obj[j].value;
+		            str += "#param#" + xx;
+		            break;
+		        }
+		    }
+
+			for (var i = 7; i < 11; i++) {
+				var xx=document.getElementById((i+1).toString()).value;
+				str += "#param#" + xx;
+			}
+
+	        localStorage.setItem(arr[4], str);
+	        alert("修改成功")
+
+	        changeTextStatus();
+		}
+
+		function changeTextStatus () {
+			var myID = localStorage.getItem("MyID")
+			var data = localStorage.getItem(myID)
+			arr = data.split("#param#");
+			var xx=document.getElementById("changeButton");  
+			xx.innerHTML = "<input type='button' style='width:50px;font-size:22px'  value='修改' onclick='editMessage()'>"
+
+			var xxx=document.getElementById("editor");  
+			var str00 = ""
+			if (arr[6] == "男") {
+				str00 = "<tr><td class='select00'><form id='7' style='width:200px;height:30;font-size:22px'>性别:<input type='radio' checked='checked' name='Sex' value='男' disabled='true'/><input type='radio' name='Sex' value='女' disabled='true'/></form></td></tr>"
+			} else {
+				str00 = "<tr><td class='select00'><form id='7' style='width:200px;height:30;font-size:22px'>性别:<input type='radio' name='Sex' value='男' disabled='true'/><input type='radio' checked='checked' name='Sex' value='女' disabled='true'/></form></td></tr>"
+			}
+			for (var i = 7; i < 11; i++) {
+				str00 += "<tr><td>" + titleArr2[i-7] + "<input value=" + arr[i].toString() + " id='" + (i+1) + "' type='text' readonly='true' style='background:#CCCCCC;width:200px;height:30;font-size:22px'></td></tr>"
+			}
+
+			xxx.innerHTML = str00
+		}
+	</script>
+</head>
+
+<body onload="onload()">
+	<br/>
+	<table width="800px" border="0">
+		<tr>
+			<td>
+				<table border="0" class="table1" id="table1">
+				</table>
+			</td>
+
+			<td>
+				<table border="0" class="table2" id = "editor"></table>
+			</td>
+		</tr>
+	</table>
+	
+
+
+	
+	<br/>
+
+	<div class="button5" id="changeButton">
+	</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body {
+			background-color: #CCFFFF;
+		}
+		.type {
+			width: 300;
+			height: 60;
+		}
+		.th {
+			width: 20%;
+		}
+		.addButton {
+			padding-left: 300px
+		}
+	</style>
+	<script>
+		var isEdit = 0;
+		var selectValue = "1"
+		var headTitle = ["室号", "配置", "损毁情况", "容量/人", "安全指数", "编辑"];
+		var arr = new Array();
+		var totalArr = new Array();
+        var data = localStorage.getItem("totalProbability");
+
+		function onload () {
+			judgeUserType();
+			selectClass("1");
+		}
+
+		function judgeUserType () {
+			var type = localStorage.getItem("userType");
+			if (type == "管理员") {
+				isEdit = 1;
+
+				var xx=document.getElementById("addButton");
+				var str = "<br/><br/><input type='button' value='添加' onclick='addClass()' style='width:49px;height:15px;font-size:20px;'>"
+				xx.innerHTML = str
+			}
+
+			var xx=document.getElementById("head1");
+			var str = ""; 
+			for (var i = 0; i < (headTitle.length+isEdit-1); i++) {
+				headTitle[i]
+				str += "<th>" + headTitle[i] + "</th>"
+			}
+			xx.innerHTML = str;
+
+		}
+
+		function selectChange () {
+			selectValue=document.getElementById("Discipline").value;
+			selectClass(selectValue);
+		}
+
+		function selectClass (value) {
+			data = localStorage.getItem("totalProbability");
+			if (data) {
+				totalArr = data.split("#param1#");
+				arr = totalArr[parseInt(value)-1].split("#param2#");
+				var xx=document.getElementById("tbody1");
+				var str = ""; 
+				for (var i = 0; i < arr.length; i++) {
+					var labData = arr[i].split("#param3#");
+
+					str += "<tr id=" + (i+1) + ">"
+					for (var j = 0; j < labData.length; j++) {
+							str += "<td>" + labData[j] + "</td>"
+					}
+
+					if (isEdit) {
+						str += "<td><input type='button' value='修改' onclick='editData(\"" + (i+1) + "\")' style='width:49px;height:15px;font-size:20px;'><input type='button' value='删除' onclick='deleteData(\"" + (i+1) + "\")' style='width:49px;height:40px;font-size:20px;'>" + "</td></tr>"
+					} else {
+						str += "</tr>"
+					}
+				}
+				xx.innerHTML = str;
+			}
+		}
+
+		function editData (elementID) {
+			var xx=document.getElementById(elementID);
+
+			var labData = arr[parseInt(elementID)-1].split("#param3#");
+
+			var str = "<tr id=" + elementID + ">"
+			for (var j = 0; j < headTitle.length-1; j++) {
+				str += "<td><input id=" + (j+100).toString() + " type='text' style='width:49px;height:15px;font-size:15px' value=" + labData[j] + "></td>";
+			}
+
+			str += "<td><input type='button' value='保存' onclick='saveData(\"" + elementID + "\")' style='width:49px;height:40px;font-size:20px;'>" + "</td></tr>"
+
+			xx.innerHTML = str;
+		}
+
+		function deleteData (elementID) {
+			var r=confirm("确定删除该间实验室吗？");
+			if (r==true) {
+				arr.splice(parseInt(elementID)-1,1);
+				setSaveData();
+			}
+		}
+
+		function saveData (elementID) {
+			var str = getTextMessage(elementID);
+			arr[parseInt(elementID)-1] = str;
+			changeClickStatus()
+			setSaveData();
+
+			var xx=document.getElementById(elementID);
+			xx.innerHTML = setElementEdit(elementID);
+		}
+
+		function setSaveData () {
+			var arrStr = arr.join("#param2#")
+			totalArr[parseInt(selectValue)-1] = arrStr
+			var dataStr0 = totalArr.join("#param1#")
+		    localStorage.setItem("totalProbability", dataStr0);
+			selectClass(selectValue);
+		}
+
+		function getTextMessage (elementID) {
+			var textArr = new Array()
+			for (var i = 0; i < headTitle.length-1; i++) {
+				textArr[i]=document.getElementById((i+100).toString()).value
+			};
+			var str = textArr[0] + "#param3#" + textArr[1] + "#param3#" + textArr[2] + "#param3#" + textArr[3] + "#param3#" + textArr[4];
+			return str;
+		}
+
+		function setElementEdit (elementID) {
+
+			var labData = arr[parseInt(elementID)-1].split("#param3#");
+
+			var str = "<tr id=" + elementID + ">"
+			for (var j = 0; j < labData.length; j++) {
+				str += "<td>" + labData[j] + "</td>"
+			};
+
+			str += "<td><input type='button' value='修改' onclick='editData(\"" + elementID + "\")' style='width:49px;height:40px;font-size:20px;'><input type='button' value='删除' onclick='deleteData(\"" + elementID + "\")' style='width:49px;height:40px;font-size:20px;'>" + "</td></tr>"
+
+			return str;
+		}
+
+var addClassData=""
+		function addClass () {
+			var xx=document.getElementById("tbody1");
+			addClassData = xx.innerHTML
+			var str = "<tr id=" + (arr.length+1) + ">"
+			for (var j = 0; j < headTitle.length-1; j++) {
+				str += "<td><input id=" + (j+100).toString() + " type='text' style='width:49px;height:15px;font-size:15px'></td>";
+			}
+
+			str += "<td><input type='button' value='保存' onclick='saveData(\"" + (arr.length+1) + "\")' style='width:49px;height:40px;font-size:20px;'>" + "</td></tr>"
+			xx.innerHTML = xx.innerHTML + str;
+
+			var xx=document.getElementById("addButton");
+			var str = "<br/><br/><input type='button' value='撤销' onclick='evokeAdd()' style='width:49px;height:15px;font-size:20px;'>"
+			xx.innerHTML = str
+		}
+
+		function evokeAdd () {
+			var xx=document.getElementById("tbody1");
+			xx.innerHTML = addClassData;
+
+			changeClickStatus();
+
+		}
+
+		function changeClickStatus () {
+			var xx=document.getElementById("addButton");
+			var str = "<br/><br/><input type='button' value='添加' onclick='addClass()' style='width:49px;height:15px;font-size:20px;'>"
+			xx.innerHTML = str
+		}
+	</script>
+</head>
+
+<body onload="onload()">
+	<br/>
+	<form class="selecte">type:
+		<select id="Discipline" class="type" style="font-size:18px;" onchange="selectChange()">
+			<option value="1" selected="selected">计算机类</option>
+			<option value="2">物理类</option>
+			<option value="3">艺术类</option>
+			<option value="4">化学类</option>
+			<option value="5">硬件类</option>
+			<option value="6">其它</option>
+		</select>
+	</form>
+	<br/>
+
+	<table border="1" class="table1" width="600">
+		<tr class="th" id="head1">
+		</tr>
+	  	<tbody align="center" id="tbody1">
+		</tbody>
+	</table>
+	<we id="addButton"></we>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>实验室管理系统</title>
+	<h1 align="center">
+		实验室管理系统
+	</h1>
+	<style type="text/css">
+		nav {
+			font-style: 32px;
+			padding-top: 20px;
+		}
+		a {
+			text-decoration: none;
+		}
+		body {
+			background-color: #CCFFFF;
+		}
+		.table1 {
+			width: 100%
+		}
+	</style>
+
+	<script  type="text/javascript" src="InitAction.js">
+	</script>
+</head>
+
+<body onload="onload()">
+
+	<table border="0" class="table1">
+		<tr>
+		  	<td align="left">
+				<div align="left" id="baseName">
+				</div>
+			</td>
+		  	<td align="right">
+			  	<we id="week"></we>
+				<input type="button" value="退出" onclick="signOut()" style="height:40px;font-size:28px;">
+			</td>
+		</tr>
+	</table>
+
+
+	<nav>
+		<div style="font-size:32px;" align="center">
+			<a id="1" onclick ="index(1)" style="color:red">首页</a>
+			<a id="2" onclick ="index(2)">总概</a>
+			<a id="3" onclick ="index(3)">预约</a>
+			<a id="4" onclick ="index(4)">查询</a>
+			<a id="5" onclick ="index(5)">信息</a>
+		</div>
+	</nav>
+</br>
+
+	<iframe id="iframe" src="/Users/apple/Desktop/ting2/One.html" align="center" width="900" height="1000">
+	</iframe>
+
+</body>
+</html>
+
+
+
+
