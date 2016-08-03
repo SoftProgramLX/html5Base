@@ -1,164 +1,162 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-	<title>登陆</title>
-	<meta charset="UTF-8">
-	<h1 align="center">
+
+	<head>
+		<title>登陆</title>
+		<meta charset="UTF-8">
+		<h1 align="center">
 		测试
 	</h1>
-	<style type="text/css">
-		.td {
-			width: 33.3%;
-			height: 200px;
-		}
-		.p {
-			padding-top: 0px;
-		}
-		nav {
-			font-style: 32px;
-			padding-top: 20px;
-			padding-left: 25%;
-		}
-		body {
-			background-color: #CCFFFF;
-			width: 
-		}
-	</style>
-	<script>
-		var path = "/Users/apple/Desktop/ting2/";
-
-		function onload() {
-			setTodayTime();
-		}
-
-		function setTodayTime () {
-			var d=new Date()
-			var weekday=new Array(7)
-			weekday[0]="星期日"
-			weekday[1]="星期一"
-			weekday[2]="星期二"
-			weekday[3]="星期三"
-			weekday[4]="星期四"
-			weekday[5]="星期五"
-			weekday[6]="星期六"
-			var xx=document.getElementById("week");  
-			xx.innerHTML=weekday[d.getDay()];
-		}
-
-		function loginClicked() {	
-			//清除所有缓存
-			// localStorage.clear();
-			var userID=document.getElementById("userID").value
-			var password=document.getElementById("passWord").value
-			// var userID="333"
-			// var password="333"
-			var type=document.getElementById("type").value
-
-			if (userID.length == 3 && password.length > 0) {
-				var dt = localStorage.getItem(userID)
-				var str = "#param#"
-				if (dt) {
-					var arr = dt.split(str);
-					if (arr[0]==type && arr[5]==password) {
-						alert("登陆成功")
-			  			window.location.assign("/Users/apple/Desktop/ting2/NavFrmae.html")
-			  			localStorage.setItem("MyID", userID);
-			  			localStorage.setItem("userType", type);
-			  			localStorage.setItem("userName", arr[3]);
-			  		} else {
-		  				alert("The user name or password is wrong")
-		  			}
-		  		} else {
-		  			alert("User name does not exist")
-		  		}
-			} else {
-				alert("Please complete the user name and password")
+		<style type="text/css">
+			.td {
+				width: 33.3%;
+				height: 200px;
 			}
-		}
+			
+			.p {
+				padding-top: 0px;
+			}
+			
+			nav {
+				font-style: 32px;
+				padding-top: 20px;
+				padding-left: 25%;
+			}
+			
+			body {
+				background-color: #CCFFFF;
+				width:
+			}
+		</style>
+		
+		<script>
+		
+			function onload() {
+				setTodayTime();
+			}
 
-		function registerClicked() {
-  			window.location.assign(path ＋ "Register.html")
-		}
+			function setTodayTime() {
+				var d = new Date()
+				var weekday = new Array(7)
+				weekday[0] = "星期日"
+				weekday[1] = "星期一"
+				weekday[2] = "星期二"
+				weekday[3] = "星期三"
+				weekday[4] = "星期四"
+				weekday[5] = "星期五"
+				weekday[6] = "星期六"
+				var xx = document.getElementById("week");
+				xx.innerHTML = weekday[d.getDay()];
+			}
 
-		function index () {
-			alert("请先登录后浏览")
-		}
-	</script>
-</head>
+			function loginClicked() {
+				//清除所有缓存
+				// localStorage.clear();			
 
-<body onload="onload()">
-	<div align="right" id="week">
+				var userID = document.getElementById("userID").value
+				var password = document.getElementById("passWord").value
+					// var userID="333"
+					// var password="333"
+				var type = document.getElementById("type").value
+
+				if(userID.length == 3 && password.length > 0) {
+					var dt = localStorage.getItem(userID)
+					var str = "#param#"
+					if(dt) {
+						var arr = dt.split(str);
+						if(arr[0] == type && arr[5] == password) {
+							alert("登陆成功")
+							window.location.assign("NavFrmae.html")
+							localStorage.setItem("MyID", userID);
+							localStorage.setItem("userType", type);
+							localStorage.setItem("userName", arr[3]);
+						} else {
+							alert("The user name or password is wrong")
+						}
+					} else {
+						alert("User name does not exist")
+					}
+				} else {
+					alert("Please complete the user name and password")
+				}
+			}
+
+			function registerClicked() {
+				window.location.assign("Register.html");
+			}
+
+			function index() {
+				alert("请先登录后浏览");
+			}
+		</script>
+	</head>
+
+	<body onload="onload()">
+		<div align="right" id="week">
 	</div>
 
-	<p style="font-size:32px;" align="center">
-		<a id="1" onclick ="index(1)" style="color:red">Home</a>
-		<a id="2" onclick ="index(2)">two</a>
-		<a id="3" onclick ="index(3)">Three</a>
-		<a id="4" onclick ="index(4)">Fore</a>
-		<a id="5" onclick ="index(5)">Five</a>
-	</p>
+		<p style="font-size:32px;" align="center">
+			<a id="1" onclick="index(1)" style="color:red">Home</a>
+			<a id="2" onclick="index(2)">two</a>
+			<a id="3" onclick="index(3)">Three</a>
+			<a id="4" onclick="index(4)">Fore</a>
+			<a id="5" onclick="index(5)">Five</a>
+		</p>
 
-	<table border="1">
-		<tr>
-		  <td class="td">
-		  	<p class="p" align="center">Provisions for the use of laboratory</p>
-		  	<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
-		  </td>
-		  <td class="td">
-		  	<p class="p" align="center">The laboratory management</p>
-		  	<p>Welcome!
+		<table border="1">
+			<tr>
+				<td class="td">
+					<p class="p" align="center">Provisions for the use of laboratory</p>
+					<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
+				</td>
+				<td class="td">
+					<p class="p" align="center">The laboratory management</p>
+					<p>Welcome!
 
+						<table border="0" width="300" height="150">
+							<tr>
+								<td>身份:</td>
+								<td>
+									<form>
+										<select id="type" name="type" style="height:30px;font-size:18px;">
+											<option value="学生" selected="selected">学生</option>
+											<option value="教师">教师</option>
+											<option value="管理员">管理员</option>
+										</select>
+									</form>
+								</td>
+							</tr>
+							<tr>
+								<td height="40" id="username1">用户名:</td>
+								<td>
+									<input id="userID" type="text" name="uname" style="background- color:green;height:25px;color:whide;font-size:18px;">
+								</td>
+							</tr>
+							<tr>
+								<td>密码:</td>
+								<td>
+									<input id="passWord" type="passWord" name="pname" style="background- color:green;height:25px;color:whide;font-size:18px;">
+								</td>
+							</tr>
+							<tr>
+								<th>
+								</th>
+								<td>
+									<input type="button" value="登陆" onclick="loginClicked()" style="height:40px;font-size:28px;">
+									<input type="button" value="注册" onclick="registerClicked()" style="height:40px;font-size:28px;">
+								</td>
+							</tr>
+						</table>
 
+					</p>
+				</td>
+				<td class="td">
+					<p class="p" align="center">Laboratory configuration</p>
+					<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
+				</td>
+			</tr>
+		</table>
 
-				<table border="0" width="300" height="150">
-					<tr>
-						<td>身份:</td>
-						<td>
-							<form>
-								<select id="type" name="type" style="height:30px;font-size:18px;">
-									<option value="学生" selected="selected">学生</option>
-									<option value="教师">教师</option>
-									<option value="管理员">管理员</option>
-								</select>
-							</form>
-						</td>
-					</tr>
-					<tr>
-						<td  height="40">用户名:</td>
-						<td>
-							<input id="userID" type="text" name="uname" style="background- color:green;height:25px;color:whide;font-size:18px;">
-						</td>
-					</tr>
-					<tr>
-						<td>密码:</td>
-						<td>
-							<input id="passWord" type="passWord" name="pname" style="background- color:green;height:25px;color:whide;font-size:18px;">
-						</td>
-					</tr>
-					<tr>
-						<th>
-						</th>
-						<td>
-							<input type="button" value="登陆" onclick="loginClicked()" style="height:40px;font-size:28px;">
-							<input type="button" value="注册" onclick="registerClicked()" style="height:40px;font-size:28px;">
-						</td>
-					</tr>
-				</table>
+	</body>
 
-
-
-		  	</p>
-		  </td>
-		  <td class="td">
-		  	<p class="p" align="center">Laboratory configuration</p>
-		  	<p>After two hours, the professor called for the exams, and the students filed up and handed them in</p>
-		  </td>
-		</tr>
-	</table>
-
-</body>
 </html>
-
-
-
-

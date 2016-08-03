@@ -1,6 +1,5 @@
 
 
-var path = "/Users/apple/Desktop/ting2/";
 
 function onload() {
 	setTodayTime();
@@ -36,7 +35,7 @@ function setTodayTime () {
 function signOut () {
 	var r=confirm("确认退出吗？");
 	if (r==true) {
-		window.location.assign(path + "Origin.html")
+		window.location.assign("Origin.html")
 	}
 }
 
@@ -373,15 +372,15 @@ function timeQuery () {
 function index(index0) {
 	var element=document.getElementById('iframe');
 	if (index0 == 1) {
-	  	element.src=path + "One.html";
+	  	element.src="One.html";
 	} else if (index0 == 2) {
-	  	element.src=path + "Two.html";
+	  	element.src="Two.html";
 	} else if (index0 == 3) {
-	  	element.src=path + "Three.html";
+	  	element.src="Three.html";
   	} else if (index0 == 4) {
-	  	element.src=path + "Four.html";
+	  	element.src="Four.html";
   	} else if (index0 == 5) {
-	  	element.src=path + "Five.html";
+	  	element.src="Five.html";
   	}
 
   	for (var i = 1; i < 6; i++) {

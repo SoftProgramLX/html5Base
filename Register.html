@@ -33,7 +33,6 @@
 	</style>
 
 	<script type="text/javascript">
-		var path = "/Users/apple/Desktop/ting2/";
 		
 		var footerStr = "<tr><th colspan='2'><input class='btn' type='button' value='注册' onclick='registerClicked()'></th></tr>" 
 
@@ -108,7 +107,7 @@
 			var name = document.getElementById("4").value; 
 			var StudentID = document.getElementById("5").value;
 			var password = document.getElementById("6").value; 
-			if (College=="南京工程学院" && Class.length > 0 && name.length > 0 && StudentID.length == 3 && password.length > 0) {
+			if (College.length > 0 && Class.length > 0 && name.length > 0 && StudentID.length > 0 && password.length > 0) {
 				if (!localStorage.getItem(StudentID)) {
 			        //清空所有的key-value数据。
 			        // localStorage.clear();
@@ -117,7 +116,7 @@
 			        //添加key-value 数据到 localStorage
 			        localStorage.setItem(StudentID, str);
 			        alert("注册成功")
-		  			window.location.assign(path + "Origin.html")
+		  			window.location.assign("Origin.html")
 				} else {
 					alert("Has been registered")
 				}
